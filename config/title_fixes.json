@@ -18,5 +18,8 @@
   "one dozen stories": "One Dozen Stories",
   "the night train at deoli & the leopard": "The Night Train at Deoli & The Leopard",
   "india's most fearless": "India's Most Fearless",
-  "evelina": "Evelina"
+  "evelina": "Evelina",
+
+  "_no_trailing_parens_comment": "The website's session importer reads a trailing '(...)' as the segment and strips it, so a title must never end in one - otherwise works.csv keeps the bracket, sessions.csv loses it, and the two stop matching. The Bengali original title is recorded in work_metadata.json instead.",
+  "the promise (dui bondhu)": "The Promise"
 }

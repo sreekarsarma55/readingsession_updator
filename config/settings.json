@@ -49,6 +49,9 @@
     "Poet"
   ],
 
+  "_disambiguator_comment": "Appended to a title, with the author, when two different works share the same title. Deliberately NOT parentheses: the website's session importer treats a trailing '(...)' as the segment and strips it, which would undo the disambiguation and split the work in two.",
+  "title_disambiguator": " — ",
+
   "_category_map_comment": "The Category column in works.csv feeds the website's `category` field, which has a fixed vocabulary. This folds the club's interchangeable labels onto the values the site already stores, so recovering the 'Tale :' sessions does not introduce a new category. Values are compared and emitted in lower case.",
   "category_map": {
     "tale": "story",
