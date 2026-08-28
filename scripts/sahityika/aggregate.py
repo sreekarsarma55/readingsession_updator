@@ -18,8 +18,14 @@ class Work:
     work_type: str = ""
     language: str = ""
     country: str = ""
+    genre: str = ""
+    status: str = ""
     confidence: str = ""
     note: str = ""
+
+    @property
+    def is_club_activity(self) -> bool:
+        return self.work_type == "Club Activity"
 
     sessions: int = 0
     primary_sessions: int = 0
@@ -118,6 +124,8 @@ def build_works(sessions: list[Session], config: Config) -> list[Work]:
                     work_type=meta.get("type", ""),
                     language=meta.get("language", ""),
                     country=meta.get("country", ""),
+                    genre=config.genre_for(ref.title),
+                    status=config.status_for(ref.title),
                     confidence=meta.get("confidence", "unverified"),
                     note=meta.get("note", ""),
                 )
@@ -155,7 +163,7 @@ def work_sort_key(work: Work) -> tuple[int, int, str]:
     """Most-read works first; the club's own segments drop to the bottom so the
     list reads as 'what we read' rather than 'what we did'."""
     return (
-        1 if work.work_type == "Club Activity" else 0,
+        1 if work.is_club_activity else 0,
         -work.sessions,
         work.title.casefold(),
     )

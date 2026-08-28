@@ -135,61 +135,77 @@ def write_sessions_detailed(path: Path, sessions: list[Session], config: Config)
 # --------------------------------------------------------------------------
 
 
+_WORKS_HEADER = [
+    # --- consumed by the website's ReadingWork importer ---
+    "Title",
+    "Author",
+    "Category",
+    "Actual_Type",
+    "Genre",
+    "Language",
+    "Country",
+    "Status",
+    "Sessions",
+    "First_Date",
+    "Last_Date",
+    # --- extra context for humans, ignored by the importer ---
+    "Hours",
+    "Reader_Count",
+    "Readers",
+    "Segments_Covered",
+    "Author_Confidence",
+    "Notes",
+]
+
+
+def _work_row(work: Work, config: Config) -> list[Any]:
+    return [
+        work.title,
+        work.author,
+        config.site_category(work.announced_as),
+        work.work_type,
+        work.genre,
+        work.language,
+        work.country,
+        work.status,
+        work.sessions,
+        iso_date(work.first_session),
+        iso_date(work.last_session),
+        round(work.total_minutes / 60, 1),
+        work.reader_count,
+        JOIN.join(work.readers),
+        JOIN.join(work.segments),
+        work.confidence,
+        work.note,
+    ]
+
+
 def write_works(path: Path, works: list[Work], config: Config) -> int:
-    """Works, most-read first.
+    """Published works, most-read first - the website's reading list.
 
-    The leading columns deliberately use the column names and order of the
-    website's ReadingWork import (title, author, category, actual_type,
-    language, country, sessions, first_date, last_date) so the file drops
-    straight into the Django admin importer. `category` is lower-cased to match
-    the values the site already stores. Everything after `last_date` is extra
-    context for humans; the importer ignores columns it does not know.
+    The leading columns use the exact names and order of the ReadingWork
+    importer (title, author, category, actual_type, genre, language, country,
+    status, sessions, first_date, last_date), so the file drops straight into
+    the Django admin. `category` is lower-cased and folded onto the model's
+    CATEGORY_CHOICES. Columns after `Last_Date` are extra context; the importer
+    ignores what it does not recognise.
+
+    The club's own segments are excluded and written to club_activities.csv
+    instead, so the site's reading list stays a list of actual books.
     """
-    rows = []
-    for work in works:
-        rows.append(
-            [
-                work.title,
-                work.author,
-                config.site_category(work.announced_as),
-                work.work_type,
-                work.language,
-                work.country,
-                work.sessions,
-                iso_date(work.first_session),
-                iso_date(work.last_session),
-                round(work.total_minutes / 60, 1),
-                work.reader_count,
-                JOIN.join(work.readers),
-                JOIN.join(work.segments),
-                work.confidence,
-                work.note,
-            ]
-        )
+    rows = [_work_row(w, config) for w in works if not w.is_club_activity]
+    return _write_csv(path, _WORKS_HEADER, rows)
 
-    return _write_csv(
-        path,
-        [
-            # --- consumed by the website importer ---
-            "Title",
-            "Author",
-            "Category",
-            "Actual_Type",
-            "Language",
-            "Country",
-            "Sessions",
-            "First_Date",
-            "Last_Date",
-            # --- extra context, ignored by the importer ---
-            "Hours",
-            "Reader_Count",
-            "Readers",
-            "Segments_Covered",
-            "Author_Confidence",
-            "Notes",
-        ],
-        rows,
-    )
+
+def write_club_activities(path: Path, works: list[Work], config: Config) -> int:
+    """The club's own recurring segments, kept out of the reading list.
+
+    These ran alongside a reading ("Salem's Lot + Ink What You Think") and are
+    part of the club's history, but they are not published works. Import them
+    only if you want them on the site, using category "other".
+    """
+    rows = [_work_row(w, config) for w in works if w.is_club_activity]
+    return _write_csv(path, _WORKS_HEADER, rows)
 
 
 def write_work_readers(path: Path, works: list[Work], config: Config) -> int:

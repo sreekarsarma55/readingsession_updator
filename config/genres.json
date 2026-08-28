@@ -1,0 +1,68 @@
+{
+  "_comment": "Genre per work, feeding the website's ReadingWork.genre CharField (max 120, free text). Kept in one file so the vocabulary stays consistent and easy to review. Titles are matched case-insensitively. Anything not listed here is exported blank on purpose - a wrong genre on a public page is worse than an empty one, and mixed anthologies genuinely have no single genre.",
+
+  "Salem's Lot": "Horror",
+  "One For The Road": "Horror",
+  "Devolution": "Horror",
+  "Hellstar Remina": "Horror",
+  "The Wendigo": "Horror",
+  "Lukundoo": "Horror",
+  "The Monkey's Paw": "Horror",
+  "The Terror": "Horror",
+  "The Vicious Vampire": "Horror",
+  "Carmilla": "Gothic Horror",
+  "Dagon and The Other Gods": "Cosmic Horror",
+  "Arkham Asylum: A Serious House on Serious Earth": "Superhero Horror",
+  "Oh, Whistle, and I'll Come to You, My Lad": "Ghost Story",
+  "The Upper Berth": "Ghost Story",
+  "Khagam": "Supernatural Fiction",
+
+  "The Murder of Roger Ackroyd": "Detective Fiction",
+  "Miss Marple Stories": "Detective Fiction",
+  "The Case of The Caretaker": "Detective Fiction",
+  "Sherlock Holmes Stories": "Detective Fiction",
+  "The Purloined Letter": "Detective Fiction",
+
+  "The Hitchhiker's Guide to the Galaxy": "Comic Science Fiction",
+  "The Hungry Septopus": "Science Fiction",
+  "Uglies": "Dystopian Fiction",
+  "The Midnight Library": "Speculative Fiction",
+
+  "Pride and Prejudice": "Romance",
+  "Evelina": "Comedy of Manners",
+  "Waiting for the Mahatma": "Historical Fiction",
+  "The Kite Runner": "Historical Fiction",
+
+  "Ramayan": "Mythology",
+  "Rashmirathi": "Mythology",
+  "The Strangest Man": "Biography",
+  "The Champawat Man-Eater": "Memoir",
+  "India's Most Fearless": "Military Non-fiction",
+
+  "Classic Poems": "Poetry",
+  "The Rime of the Ancient Mariner": "Poetry",
+
+  "Lord of the Flies": "Allegory",
+  "The Lady, or the Tiger?": "Fable",
+  "The Little Prince": "Fable",
+  "दो बैलों की कथा": "Fable",
+
+  "Hell Screen": "Psychological Fiction",
+  "The Possibility of Evil": "Psychological Fiction",
+
+  "Kankaal": "Social Realism",
+  "Kabuliwala": "Literary Fiction",
+  "Antim Pyaar": "Literary Fiction",
+  "The Postmaster": "Literary Fiction",
+  "An Astrologer's Day": "Literary Fiction",
+  "The Last Leaf": "Literary Fiction",
+  "A Vagabond": "Literary Fiction",
+  "Love": "Literary Fiction",
+  "A Mistake": "Literary Fiction",
+  "The Promise (Dui Bondhu)": "Literary Fiction",
+  "The Most Beautiful": "Literary Fiction",
+  "The Night Train at Deoli & The Leopard": "Literary Fiction",
+
+  "The Blue Umbrella": "Children's Literature",
+  "The Maths Teacher, Mr Pink, and Tipu": "Children's Literature"
+}
