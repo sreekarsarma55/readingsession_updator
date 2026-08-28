@@ -36,6 +36,7 @@ scripts/archive/     superseded one-off scripts, kept for reference
 | `sessions.csv` | session | The core log: `Title, Reader, Segment, Created_Date, Stopped_At, Duration_Minutes` |
 | `sessions_detailed.csv` | session | Same sessions plus author, category, announcer, raw announcement values, warnings |
 | `works.csv` | work | Everything read, most-read first. Import-ready for the website (see below) |
+| `club_activities.csv` | activity | The club's own segments, kept out of the reading list |
 | `work_readers.csv` | work | Just the work and everyone who read it, alphabetical |
 | `readers.csv` | person | Session and hour totals per reader |
 | `authors.csv` | author | Works and sessions per author |
@@ -56,17 +57,38 @@ Everything after `Last_Date` (`Hours`, `Reader_Count`, `Readers`,
 `Segments_Covered`, `Author_Confidence`, `Notes`) is extra context for humans —
 the importer ignores columns it does not recognise.
 
-Two details worth knowing:
+Column names here are the importer's, which differ from the model's own field
+names — the resource renames them:
 
-- **`Category` is lower-cased and folded onto the site's existing vocabulary**
-  (`book`, `novel`, `story`, `piece`, `poem`). The club has used interchangeable
-  labels over the years, so `category_map` in `config/settings.json` maps
-  `tale → story`, `novella → novel` and so on. Without it, recovering the
-  March–May 2025 `Tale :` sessions would push a brand-new `tale` value into the
-  site and risk failing a choices validation.
-- **`Genre` and `Status` are intentionally not exported.** `Status` already has
-  a working model default (`completed`), and `Genre` looks like a related model
-  on the site, so free-text values would either fail or create junk records.
+| CSV column | `ReadingWork` field |
+|---|---|
+| `Actual_Type` | `work_type` |
+| `Sessions` | `legacy_session_count` |
+| `First_Date` | `first_read_on` |
+| `Last_Date` | `last_read_on` |
+
+Details worth knowing:
+
+- **`Category` is lower-cased and folded onto `CATEGORY_CHOICES`**
+  (`book`, `novel`, `story`, `piece`, `poem`, `other`). The club has used
+  interchangeable labels over the years, so `category_map` in
+  `config/settings.json` maps `tale → story`, `novella → novel` and so on.
+  Without it, recovering the March–May 2025 `Tale :` sessions would push an
+  invalid `tale` value at a choices-validated field.
+- **`Status`** uses `STATUS_CHOICES` and defaults to `completed`. The book
+  currently being read is set in `status_overrides` in `config/settings.json`.
+  The site allows only one work in `reading`, so keep that to a single entry.
+- **`Genre`** is free text (`CharField`, 120 chars), curated in
+  `config/genres.json`. It is filled for 55 of 64 works; anything genuinely
+  mixed, unattributed, or a member's own piece is left blank on purpose, since
+  a wrong genre on a public page is worse than an empty one.
+- **`Last_Date` matters for site ordering.** `ReadingWork.Meta.ordering` is
+  `["-last_read_on", "-created_at"]`, so while this column was empty the
+  reading list fell back to creation order.
+- **Club segments are not in `works.csv`.** *From The Pages of Childhood* and
+  *Ink What You Think* ran alongside readings but are not published works, so
+  they go to `club_activities.csv`. Import them only if you want them listed,
+  and use category `other`.
 
 ### Re-importing without creating duplicates
 
@@ -121,7 +143,8 @@ touching code:
 
 | File | Holds |
 |---|---|
-| `settings.json` | Duration, timezone, which line labels count as a work, bad reader values |
+| `settings.json` | Duration, timezone, work labels, bad reader values, category map, status |
+| `genres.json` | Genre per work, for the website's `genre` field |
 | `title_fixes.json` | Canonical spellings (`Carmila` → `Carmilla`) |
 | `author_fixes.json` | Canonical author names (`H.P Lovecraft` → `H. P. Lovecraft`) |
 | `reader_aliases.json` | Reader identity merges, multi-reader separators |

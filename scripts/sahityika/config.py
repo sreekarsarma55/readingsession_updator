@@ -40,6 +40,7 @@ class Config:
     reader_separators: list[str]
     reader_tentative_markers: list[str]
     work_metadata: dict[str, dict[str, Any]]
+    genres: dict[str, str]
     bad_readers: set[str]
 
     # Convenience accessors ------------------------------------------------
@@ -65,6 +66,22 @@ class Config:
     @property
     def author_fields(self) -> list[str]:
         return self.settings.get("author_fields", ["Writer", "Author"])
+
+    @property
+    def club_activity_type(self) -> str:
+        return self.settings.get("club_activity_type", "Club Activity")
+
+    def genre_for(self, title: str) -> str:
+        return self.genres.get(title.casefold(), "")
+
+    def status_for(self, title: str) -> str:
+        overrides = {
+            k.casefold(): v
+            for k, v in (self.settings.get("status_overrides") or {}).items()
+        }
+        return overrides.get(
+            title.casefold(), self.settings.get("default_status", "completed")
+        )
 
     def site_category(self, announced_as: str) -> str:
         """Fold an announcement label onto the website's `category` vocabulary."""
@@ -106,6 +123,7 @@ def load_config() -> Config:
     authors = _strip_comments(_load("author_fixes.json"))
     readers_raw = _load("reader_aliases.json")
     works_raw = _strip_comments(_load("work_metadata.json"))
+    genres_raw = _strip_comments(_load("genres.json"))
 
     aliases = {
         key.casefold(): value
@@ -121,6 +139,7 @@ def load_config() -> Config:
         reader_separators=readers_raw.get("separators", ["/", "&", " and ", ","]),
         reader_tentative_markers=readers_raw.get("tentative_markers", []),
         work_metadata={k.casefold(): v for k, v in works_raw.items()},
+        genres={k.casefold(): v for k, v in genres_raw.items()},
         bad_readers={x.casefold() for x in settings.get("bad_readers", [])},
         labels=settings.get("labels", ["Book", "Story", "Novel", "Poem", "Piece"]),
     )
