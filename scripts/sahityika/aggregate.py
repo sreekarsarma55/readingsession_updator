@@ -156,12 +156,14 @@ def build_works(sessions: list[Session], config: Config) -> list[Work]:
         work.readers.sort(key=str.casefold)
         work.segments.sort(key=_segment_sort_key)
 
-    disambiguate_titles(sessions, list(works.values()))
+    disambiguate_titles(sessions, list(works.values()), config)
 
     return sorted(works.values(), key=work_sort_key)
 
 
-def disambiguate_titles(sessions: list[Session], works: list[Work]) -> list[str]:
+def disambiguate_titles(
+    sessions: list[Session], works: list[Work], config: Config
+) -> list[str]:
     """Make every work title unique by appending the author where they collide.
 
     Two different member pieces were both announced as "Submission". Left as
@@ -184,7 +186,8 @@ def disambiguate_titles(sessions: list[Session], works: list[Work]) -> list[str]
         key = work.title.casefold()
         if key not in clashing or not work.author:
             continue
-        new_title = f"{work.title} ({work.author})"
+        separator = config.settings.get("title_disambiguator", " — ")
+        new_title = f"{work.title}{separator}{work.author}"
         renames[(key, work.author.casefold())] = new_title
         changed.append(new_title)
         work.title = new_title
