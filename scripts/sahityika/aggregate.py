@@ -18,8 +18,14 @@ class Work:
     work_type: str = ""
     language: str = ""
     country: str = ""
+    genre: str = ""
+    status: str = ""
     confidence: str = ""
     note: str = ""
+
+    @property
+    def is_club_activity(self) -> bool:
+        return self.work_type == "Club Activity"
 
     sessions: int = 0
     primary_sessions: int = 0
@@ -118,6 +124,8 @@ def build_works(sessions: list[Session], config: Config) -> list[Work]:
                     work_type=meta.get("type", ""),
                     language=meta.get("language", ""),
                     country=meta.get("country", ""),
+                    genre=config.genre_for(ref.title),
+                    status=config.status_for(ref.title),
                     confidence=meta.get("confidence", "unverified"),
                     note=meta.get("note", ""),
                 )
@@ -148,14 +156,54 @@ def build_works(sessions: list[Session], config: Config) -> list[Work]:
         work.readers.sort(key=str.casefold)
         work.segments.sort(key=_segment_sort_key)
 
+    disambiguate_titles(sessions, list(works.values()))
+
     return sorted(works.values(), key=work_sort_key)
+
+
+def disambiguate_titles(sessions: list[Session], works: list[Work]) -> list[str]:
+    """Make every work title unique by appending the author where they collide.
+
+    Two different member pieces were both announced as "Submission". Left as
+    is, the title stops being a usable key: the website resolves
+    ReadingSession.work by title, and `import_id_fields = ("title",)` would
+    quietly fold the two works into one.
+
+    Rewrites both the Work and the Session references so the two files stay
+    consistent. Returns the titles that were changed, for the audit report.
+    """
+    counts = Counter(work.title.casefold() for work in works)
+    clashing = {title for title, n in counts.items() if n > 1}
+    if not clashing:
+        return []
+
+    renames: dict[tuple[str, str], str] = {}
+    changed: list[str] = []
+
+    for work in works:
+        key = work.title.casefold()
+        if key not in clashing or not work.author:
+            continue
+        new_title = f"{work.title} ({work.author})"
+        renames[(key, work.author.casefold())] = new_title
+        changed.append(new_title)
+        work.title = new_title
+
+    # Keep the session-level references pointing at the same works.
+    for session in sessions:
+        for ref in session.works:
+            new_title = renames.get((ref.title.casefold(), ref.author.casefold()))
+            if new_title:
+                ref.title = new_title
+
+    return sorted(changed)
 
 
 def work_sort_key(work: Work) -> tuple[int, int, str]:
     """Most-read works first; the club's own segments drop to the bottom so the
     list reads as 'what we read' rather than 'what we did'."""
     return (
-        1 if work.work_type == "Club Activity" else 0,
+        1 if work.is_club_activity else 0,
         -work.sessions,
         work.title.casefold(),
     )

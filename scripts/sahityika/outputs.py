@@ -8,6 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
+from . import normalize as nz
 from .aggregate import Person, Work
 from .config import Config
 from .parsing import Session
@@ -49,22 +50,42 @@ def _write_csv(path: Path, header: Sequence[str], rows: Iterable[Sequence[Any]])
 
 
 def write_sessions(path: Path, sessions: list[Session], config: Config) -> int:
-    """One row per session, in the exact requested column order.
+    """One row per session, mapped onto the website's ReadingSession model.
 
-    Deliberately one row per *session* rather than per reader: a co-read
-    session is still a single two-hour meeting, so splitting it into two rows
-    would double-count Duration_Minutes. Co-readers share the Reader cell.
+        Title            -> work (matched by ReadingWork.title)
+        Reader           -> reader_name  (free text; blank shows as "Unrecorded")
+        Segment          -> segment
+        Created_Date     -> held_on      (ISO 8601 with offset)
+        Stopped_At       -> stopped_at   (handover NOTE, not a time)
+        Duration_Minutes -> duration_minutes
+
+    Two deliberate choices:
+
+    `Stopped_At` is exported blank. It is the live handover log narrators fill
+    in themselves, so a value inferred from an old announcement would read as
+    something a human logged. What each historical session covered is already
+    in `Segment`, which is the field for it. Set `stopped_at_from_segment` to
+    true to back-fill it anyway ("Chapters 19-21" -> "Chapter 21").
+
+    One row per *session*, not per reader: a co-read session is still a single
+    sitting, so splitting it would double-count Duration_Minutes. Co-readers
+    share the Reader cell, matching `reader_name`'s "free text" intent.
     """
+    derive = bool(config.settings.get("stopped_at_from_segment", True))
+    emit_duration = bool(config.settings.get("emit_duration_minutes", True))
+
     rows = []
     for session in sessions:
         rows.append(
             [
                 session.title,
-                JOIN.join(session.readers) or config.unassigned_label,
+                # Left blank rather than "Unassigned" so the model's
+                # reader_display property renders its own "Unrecorded".
+                JOIN.join(session.readers),
                 session.segment,
                 iso_datetime(session.start),
-                iso_datetime(session.end),
-                session.duration_minutes,
+                nz.handover_note(session.segment) if derive else "",
+                session.duration_minutes if emit_duration else "",
             ]
         )
 
@@ -84,6 +105,7 @@ def write_sessions_detailed(path: Path, sessions: list[Session], config: Config)
                 iso_date(session.start),
                 session.start.strftime("%A"),
                 iso_datetime(session.start),
+                nz.handover_note(session.segment),
                 iso_datetime(session.end),
                 session.duration_minutes,
                 session.title,
@@ -110,6 +132,7 @@ def write_sessions_detailed(path: Path, sessions: list[Session], config: Config)
             "Weekday",
             "Created_Date",
             "Stopped_At",
+            "Estimated_End",
             "Duration_Minutes",
             "Title",
             "Author",
@@ -135,50 +158,77 @@ def write_sessions_detailed(path: Path, sessions: list[Session], config: Config)
 # --------------------------------------------------------------------------
 
 
-def write_works(path: Path, works: list[Work]) -> int:
-    rows = []
-    for work in works:
-        rows.append(
-            [
-                work.title,
-                work.author,
-                work.work_type,
-                work.language,
-                work.country,
-                work.sessions,
-                round(work.total_minutes / 60, 1),
-                work.reader_count,
-                JOIN.join(work.readers),
-                JOIN.join(work.segments),
-                iso_date(work.first_session),
-                iso_date(work.last_session),
-                work.announced_as,
-                work.confidence,
-                work.note,
-            ]
-        )
+_WORKS_HEADER = [
+    # --- consumed by the website's ReadingWork importer ---
+    "Title",
+    "Author",
+    "Category",
+    "Actual_Type",
+    "Genre",
+    "Language",
+    "Country",
+    "Status",
+    "Sessions",
+    "First_Date",
+    "Last_Date",
+    # --- extra context for humans, ignored by the importer ---
+    "Hours",
+    "Reader_Count",
+    "Readers",
+    "Segments_Covered",
+    "Author_Confidence",
+    "Notes",
+]
 
-    return _write_csv(
-        path,
-        [
-            "Title",
-            "Author",
-            "Type",
-            "Language",
-            "Country",
-            "Sessions",
-            "Hours",
-            "Reader_Count",
-            "Readers",
-            "Segments_Covered",
-            "First_Session",
-            "Last_Session",
-            "Announced_As",
-            "Author_Confidence",
-            "Notes",
-        ],
-        rows,
-    )
+
+def _work_row(work: Work, config: Config) -> list[Any]:
+    return [
+        work.title,
+        work.author,
+        config.site_category(work.announced_as),
+        work.work_type,
+        work.genre,
+        work.language,
+        work.country,
+        work.status,
+        work.sessions,
+        iso_date(work.first_session),
+        iso_date(work.last_session),
+        round(work.total_minutes / 60, 1),
+        work.reader_count,
+        JOIN.join(work.readers),
+        JOIN.join(work.segments),
+        work.confidence,
+        work.note,
+    ]
+
+
+def write_works(path: Path, works: list[Work], config: Config) -> int:
+    """Published works, most-read first - the website's reading list.
+
+    The leading columns use the exact names and order of the ReadingWork
+    importer (title, author, category, actual_type, genre, language, country,
+    status, sessions, first_date, last_date), so the file drops straight into
+    the Django admin. `category` is lower-cased and folded onto the model's
+    CATEGORY_CHOICES. Columns after `Last_Date` are extra context; the importer
+    ignores what it does not recognise.
+
+    The club's own segments are excluded and written to club_activities.csv
+    instead, so the site's reading list stays a list of actual books.
+    """
+    rows = [_work_row(w, config) for w in works if not w.is_club_activity]
+    return _write_csv(path, _WORKS_HEADER, rows)
+
+
+def write_club_activities(path: Path, works: list[Work], config: Config) -> int:
+    """The club's own recurring segments, kept out of the reading list.
+
+    These ran alongside a reading ("Salem's Lot + Ink What You Think") and are
+    part of the club's history, but they are not published works. Import them
+    only if you want them on the site, using category "other".
+    """
+    rows = [_work_row(w, config) for w in works if w.is_club_activity]
+    return _write_csv(path, _WORKS_HEADER, rows)
 
 
 def write_work_readers(path: Path, works: list[Work], config: Config) -> int:
@@ -313,10 +363,14 @@ def write_timeline(path: Path, works: list[Work]) -> int:
 
 
 def write_archive(path: Path, sessions: list[Session], works: list[Work]) -> int:
+    # Everything here is derived from the export, with no wall-clock stamp, so
+    # rebuilding the same input produces a byte-identical file. A diff on this
+    # file then means the data really changed.
     payload = {
-        "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
         "session_count": len(sessions),
         "work_count": len(works),
+        "first_session": iso_date(sessions[0].start) if sessions else "",
+        "latest_session": iso_date(sessions[-1].start) if sessions else "",
         "sessions": [
             {
                 "created_date": iso_datetime(session.start),

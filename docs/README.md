@@ -35,12 +35,117 @@ scripts/archive/     superseded one-off scripts, kept for reference
 |---|---|---|
 | `sessions.csv` | session | The core log: `Title, Reader, Segment, Created_Date, Stopped_At, Duration_Minutes` |
 | `sessions_detailed.csv` | session | Same sessions plus author, category, announcer, raw announcement values, warnings |
-| `works.csv` | work | Everything read, most-read first, with author/type/language/country |
+| `works.csv` | work | Everything read, most-read first. Import-ready for the website (see below) |
+| `club_activities.csv` | activity | The club's own segments, kept out of the reading list |
 | `work_readers.csv` | work | Just the work and everyone who read it, alphabetical |
 | `readers.csv` | person | Session and hour totals per reader |
 | `authors.csv` | author | Works and sessions per author |
 | `timeline.csv` | work | Works in the order the club started them |
 | `archive.json` | – | Full structured dump of sessions and works |
+
+## Importing works.csv into the website
+
+`works.csv` is shaped for the Django admin importer at
+`/admin/web/readingwork/import/`. Its first nine columns use the exact names and
+order the `ReadingWork` importer expects:
+
+```
+Title, Author, Category, Actual_Type, Language, Country, Sessions, First_Date, Last_Date
+```
+
+Everything after `Last_Date` (`Hours`, `Reader_Count`, `Readers`,
+`Segments_Covered`, `Author_Confidence`, `Notes`) is extra context for humans —
+the importer ignores columns it does not recognise.
+
+Column names here are the importer's, which differ from the model's own field
+names — the resource renames them:
+
+| CSV column | `ReadingWork` field |
+|---|---|
+| `Actual_Type` | `work_type` |
+| `Sessions` | `legacy_session_count` |
+| `First_Date` | `first_read_on` |
+| `Last_Date` | `last_read_on` |
+
+Details worth knowing:
+
+- **`Category` is lower-cased and folded onto `CATEGORY_CHOICES`**
+  (`book`, `novel`, `story`, `piece`, `poem`, `other`). The club has used
+  interchangeable labels over the years, so `category_map` in
+  `config/settings.json` maps `tale → story`, `novella → novel` and so on.
+  Without it, recovering the March–May 2025 `Tale :` sessions would push an
+  invalid `tale` value at a choices-validated field.
+- **`Status`** uses `STATUS_CHOICES` and defaults to `completed`. The book
+  currently being read is set in `status_overrides` in `config/settings.json`.
+  The site allows only one work in `reading`, so keep that to a single entry.
+- **`Genre`** is free text (`CharField`, 120 chars), curated in
+  `config/genres.json`. It is filled for 55 of 64 works; anything genuinely
+  mixed, unattributed, or a member's own piece is left blank on purpose, since
+  a wrong genre on a public page is worse than an empty one.
+- **`Last_Date` matters for site ordering.** `ReadingWork.Meta.ordering` is
+  `["-last_read_on", "-created_at"]`, so while this column was empty the
+  reading list fell back to creation order.
+- **Club segments are not in `works.csv`.** *From The Pages of Childhood* and
+  *Ink What You Think* ran alongside readings but are not published works, so
+  they go to `club_activities.csv`. Import them only if you want them listed,
+  and use category `other`.
+
+## Importing sessions.csv
+
+`sessions.csv` maps onto `ReadingSession`, one row per sitting:
+
+| CSV column | `ReadingSession` field | Note |
+|---|---|---|
+| `Title` | `work` | Resolved against `ReadingWork.title` |
+| `Reader` | `reader_name` | Free text, as the field intends |
+| `Segment` | `segment` | What was covered, e.g. `Chapter 5` |
+| `Created_Date` | `held_on` | ISO 8601 with `+05:30` offset |
+| `Stopped_At` | `stopped_at` | Intentionally blank — see below |
+| `Duration_Minutes` | `duration_minutes` | Normalised, not measured |
+
+- **`Stopped_At` is exported blank.** It is the live handover log that narrators
+  fill in each session so the next reader knows which page to resume from.
+  Back-filling it with a value inferred from a years-old announcement would make
+  a guess look like something a human logged. Nothing is lost: what each session
+  covered is already in `Segment`, which is that field's purpose. Flip
+  `stopped_at_from_segment` in `config/settings.json` if you ever want the
+  history back-filled — it would reach only 14 of 217 rows, since most
+  announcements never named a chapter.
+- **`Reader` is blank when nobody was assigned**, rather than a placeholder, so
+  the model's `reader_display` renders its own `"Unrecorded"`.
+- **`Duration_Minutes` is an estimate.** Your model comment says to leave it
+  blank until the recordings are measured, and it is nullable for that reason.
+  We fill it so the site's totals add up, but that does make estimates look
+  measured — `duration_display` will read `2h` for every historical session. Set
+  `emit_duration_minutes` to false to export it blank and keep the field
+  strictly measured.
+- **Titles are unique.** Two member pieces were both announced as *Submission*;
+  they are exported as `Submission (Srutorshi Basuray)` and
+  `Submission (Sreevidya Y)` so the `work` lookup cannot go wrong.
+- **One row per sitting.** The single evening that covered two works (*Dagon and
+  The Other Gods* plus *The Upper Berth*) is one row against the primary work,
+  so `The Upper Berth` shows one session row against a `Sessions` total of two.
+  The pairing is preserved in `Also_In_Session` in `sessions_detailed.csv`.
+
+Import `works.csv` first, so the `work` foreign keys have something to resolve
+against.
+
+### Re-importing without creating duplicates
+
+The import preview marks every row `New` because the CSV carries no primary key,
+and `django-import-export` matches on `id` by default. Re-importing therefore
+appends a second copy of every work rather than updating it. Set the resource to
+match on the title instead:
+
+```python
+class ReadingWorkResource(resources.ModelResource):
+    class Meta:
+        model = ReadingWork
+        import_id_fields = ("title",)
+```
+
+With that in place, re-running the import updates existing rows and only genuine
+additions show up as `New`.
 
 ## How the numbers are derived
 
@@ -78,7 +183,8 @@ touching code:
 
 | File | Holds |
 |---|---|
-| `settings.json` | Duration, timezone, which line labels count as a work, bad reader values |
+| `settings.json` | Duration, timezone, work labels, bad reader values, category map, status |
+| `genres.json` | Genre per work, for the website's `genre` field |
 | `title_fixes.json` | Canonical spellings (`Carmila` → `Carmilla`) |
 | `author_fixes.json` | Canonical author names (`H.P Lovecraft` → `H. P. Lovecraft`) |
 | `reader_aliases.json` | Reader identity merges, multi-reader separators |
