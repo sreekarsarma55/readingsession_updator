@@ -1,0 +1,345 @@
+{
+  "Salem's Lot": {
+    "author": "Stephen King",
+    "type": "Novel",
+    "country": "USA",
+    "language": "English",
+    "status": "auto"
+  },
+  "Waiting For The Mahatma": {
+    "author": "R. K. Narayan",
+    "type": "Novel",
+    "country": "India",
+    "language": "English",
+    "status": "auto"
+  },
+  "Devolution": {
+    "author": "Max Brooks",
+    "type": "Novel",
+    "country": "USA",
+    "language": "English",
+    "status": "auto"
+  },
+  "The Murder of Roger Ackroyd": {
+    "author": "Agatha Christie",
+    "type": "Novel",
+    "country": "United Kingdom",
+    "language": "English",
+    "status": "auto"
+  },
+  "The Strangest Man": {
+    "author": "Graham Farmelo",
+    "type": "Biography",
+    "country": "United Kingdom",
+    "language": "English",
+    "status": "auto"
+  },
+  "Pride & Prejudice": {
+    "author": "Jane Austen",
+    "type": "Novel",
+    "country": "United Kingdom",
+    "language": "English",
+    "status": "auto"
+  },
+  "The Kite Runner": {
+    "author": "Khaled Hosseini",
+    "type": "Novel",
+    "country": "Afghanistan",
+    "language": "English",
+    "status": "auto"
+  },
+  "Hellstar Remina": {
+    "author": "Junji Ito",
+    "type": "Manga",
+    "country": "Japan",
+    "language": "Japanese",
+    "status": "auto"
+  },
+  "Rashmirathi": {
+    "author": "Ramdhari Singh Dinkar",
+    "type": "Epic Poem",
+    "country": "India",
+    "language": "Hindi",
+    "status": "auto"
+  },
+  "Lord of the Flies": {
+    "author": "William Golding",
+    "type": "Novel",
+    "country": "United Kingdom",
+    "language": "English",
+    "status": "auto"
+  },
+  "Uglies": {
+    "author": "Scott Westerfeld",
+    "type": "Novel",
+    "country": "USA",
+    "language": "English",
+    "status": "auto"
+  },
+  "Evelina": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Carmilla": {
+    "author": "Sheridan Le Fanu",
+    "type": "Novella",
+    "country": "Ireland",
+    "language": "English",
+    "status": "auto"
+  },
+  "The Wendigo": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "One Dozen Stories": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "'Oh, Whistle, and I'll Come to You, My Lad'": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "\"The Champawat Man-Eater\"": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Ramayan(Baal Kaand)": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Submission": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "The Little Prince": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "The Blue Umbrella": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "\"The Last Leaf\"": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "\"The Rime of the Ancient Mariner\"": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "The Lady, or The Tiger": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "The Monkey's Paw": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Classic Poems": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "The Night Train at Deoli & The Leopard": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "India's Most Fearless": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "LUKUNDOO": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "The Case of The Caretaker": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Miss Marple Stories": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Dagon and The Other Gods": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "The Upper Berth": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Sherlock Holmes Stories": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Kabuliwaala": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Kankaal": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Didi": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Antim Pyaar": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "The Choice Not Made": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Hope -- Rebooted in Reels": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "I Won't Accept Fate": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "दो बैलों की कथा": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "An Astrologer's Day": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "A Vagabond": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Love": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "A Mistake": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "The Terror": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "Possibility Of Evil": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  },
+  "The Most Beautiful": {
+    "author": "TODO",
+    "type": "TODO",
+    "country": "TODO",
+    "language": "TODO",
+    "status": "manual"
+  }
+}
