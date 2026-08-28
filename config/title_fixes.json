@@ -1,0 +1,22 @@
+{
+  "_comment": "Maps a cleaned raw title (as it appeared in chat) to its canonical form. Lookup is case-insensitive. Applied AFTER markdown/quote stripping and AFTER the segment in parentheses is split off.",
+
+  "carmila": "Carmilla",
+  "the murder of roger ackyord": "The Murder of Roger Ackroyd",
+  "the lady, or the tiger": "The Lady, or the Tiger?",
+  "the lady or the tiger": "The Lady, or the Tiger?",
+  "pride & prejudice": "Pride and Prejudice",
+  "lukundoo": "Lukundoo",
+  "waiting for the mahatma": "Waiting for the Mahatma",
+  "possibility of evil": "The Possibility of Evil",
+  "kabuliwaala": "Kabuliwala",
+  "hope -- rebooted in reels": "Hope - Rebooted in Reels",
+  "oh, whistle, and i'll come to you, my lad": "Oh, Whistle, and I'll Come to You, My Lad",
+  "dagon and the other gods": "Dagon and The Other Gods",
+  "the hitchhiker's guide to the galaxy": "The Hitchhiker's Guide to the Galaxy",
+  "ramayan": "Ramayan",
+  "one dozen stories": "One Dozen Stories",
+  "the night train at deoli & the leopard": "The Night Train at Deoli & The Leopard",
+  "india's most fearless": "India's Most Fearless",
+  "evelina": "Evelina"
+}

@@ -1,0 +1,73 @@
+{
+  "_comment": "Reader identity resolution. Keys are cleaned, lower-cased raw reader strings (after stripping markdown, @, ~, Unicode directional isolates and a trailing ' IITM'). Values are the canonical display name.",
+
+  "aliases": {
+    "satyaki goswami": "Satyaki Goswami",
+    "satyaki goswami iitm": "Satyaki Goswami",
+
+    "shagun dwivedi": "Shagun Dwivedi",
+
+    "harshvi saini": "Harshvi Saini",
+    "harshvisaini0901@gmail.com": "Harshvi Saini",
+
+    "ayesha badgujar": "Ayesha Badgujar",
+    "angana mondal": "Angana Mondal",
+    "rahul chakraborty": "Rahul Chakraborty",
+    "ayush s. jadhav": "Ayush S. Jadhav",
+    "ayush s jadhav": "Ayush S. Jadhav",
+    "aradhya kulkarni": "Aradhya Kulkarni",
+    "tamajit sadukhan": "Tamajit Sadukhan",
+    "amit kumar gupta": "Amit Kumar Gupta",
+    "abhineet raman": "Abhineet Raman",
+    "harsh vardhan rai": "Harsh Vardhan Rai",
+    "gourav kumar ghosh": "Gourav Kumar Ghosh",
+    "himanshu sharma": "Himanshu Sharma",
+    "himanshu singh": "Himanshu Singh",
+    "chhota himanshu": "Chhota Himanshu",
+    "abhishek kumar jha": "Abhishek Kumar Jha",
+    "prasannakumar": "Prasannakumar",
+    "nairhritya": "Nairhritya",
+    "nishan": "Nishan",
+    "shreya": "Shreya",
+    "ashish": "Ashish",
+    "prachi": "Prachi",
+    "anshu": "Anshu",
+    "vedam thanvi sree nithya": "Vedam Thanvi Sree Nithya",
+    "chatrapal singh rathore": "Chatrapal Singh Rathore",
+    "sreevidya yadavally": "Sreevidya Yadavally",
+
+    "_merges_below_are_inferred": "see 'uncertain' list",
+    "thanvi": "Vedam Thanvi Sree Nithya",
+    "sreevidya": "Sreevidya Yadavally",
+    "chatrapal": "Chatrapal Singh Rathore",
+    "abhishek bhaiyya": "Abhishek Kumar Jha",
+    "amit new member bib": "Amit Kumar Gupta"
+  },
+
+  "_uncertain_comment": "Alias merges (or leftover raw names) that are educated guesses and need a human to confirm. They are listed in the generated audit report.",
+  "uncertain": [
+    "thanvi",
+    "sreevidya",
+    "chatrapal",
+    "abhishek bhaiyya",
+    "amit new member bib",
+    "gharsh",
+    "himanshu"
+  ],
+
+  "_split_comment": "Separators that indicate a session had more than one reader. ORDER MATTERS: longer phrases must come first, otherwise splitting on '/' would tear 'and/or' in half.",
+  "separators": [
+    " and/or ",
+    " and ",
+    " or ",
+    "/",
+    "&",
+    ","
+  ],
+
+  "_tentative_comment": "If the raw reader string contains any of these, the reader list was still being decided when the announcement went out. Recorded, but flagged in the detailed output.",
+  "tentative_markers": [
+    "and/or",
+    " or "
+  ]
+}
