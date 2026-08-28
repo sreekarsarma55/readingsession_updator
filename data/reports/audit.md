@@ -1,8 +1,8 @@
 # Archive audit report
 
-- Sessions parsed: **217**
+- Sessions parsed: **216**
 - Distinct works: **66**
-- Reading time (normalised): **434.0 hours**
+- Reading time (normalised): **432.0 hours**
 - Date range: **2022-12-12** to **2026-08-03**
 
 ## Assumptions baked into the numbers
@@ -42,13 +42,6 @@
 - 2025-02-14 - Salem's Lot + Ink What You Think
 - 2025-02-28 - Salem's Lot + Ink What You Think
 - 2025-03-07 - Salem's Lot + Ink What You Think
-
-## Titles made unique for import
-
-Two works shared a title, which would break the website's lookup: `ReadingSession.work` is resolved by title, and `import_id_fields = ("title",)` would fold them into one record. The author is appended to keep them distinct:
-
-- Submission (Sreevidya Y)
-- Submission (Srutorshi Basuray)
 
 ## Works still missing an author (1)
 
@@ -108,7 +101,7 @@ The announcement said 'Open to all', 'Me', '???' or had no Reader line.
 
 - 2024-09-20 - Waiting for the Mahatma: Ayesha Badgujar; Himanshu Sharma; Satyaki Goswami
 
-## Messages that looked like announcements but were skipped (4)
+## Messages that looked like announcements but were skipped (5)
 
 - Tuesday, August 15, 2023 at 4:10:14 PM UTC - announcement-like message with no Book/Story label
   > Reading Sessions : A Chapter A Day Hey all!!🌻 Here are the details for today's session : Date : 15th August, 2023 Time : 10:15 PM Occasion : Independence Day Sp
@@ -118,6 +111,8 @@ The announcement said 'Open to all', 'Me', '???' or had no Reader line.
   > Hello There, Lovely People ❤ Batman's gauntlet through Arkham has been mind boggling as of now. And although today's Monday, we would be resuming with the Readi
 - Saturday, July 11, 2026 at 1:16:29 PM UTC - announcement-like message with no Book/Story label
   > Hello there, lovely people Weekly open mic Hey all🌻, come join us for an open mic. Whether you'd like to share your poems, stories, songs, or any other creative
+- 2026-03-18T16:41:30+00:00 - re-post of the 2026-03-18 'The Kite Runner' session, already announced by Sreevidya Yadavally
+  > The Kite Runner | reader: Sreevidya Yadavally | re-posted by 24F2001732 SHRUJAL N K
 
 ## Multi-work and combined sessions
 

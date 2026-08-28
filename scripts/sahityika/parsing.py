@@ -386,5 +386,55 @@ def parse_messages(messages: list[dict], config: Config) -> tuple[list[Session],
             )
         )
 
-    sessions.sort(key=lambda s: s.start)
+    sessions.sort(key=lambda s: (s.start, s.message_timestamp))
+    sessions, duplicates = deduplicate(sessions)
+    skipped.extend(duplicates)
     return sessions, skipped
+
+
+def deduplicate(sessions: list[Session]) -> tuple[list[Session], list[dict]]:
+    """Collapse re-posted announcements into a single session.
+
+    The same announcement is sometimes posted twice by different people - on
+    18 March 2026 both Sreevidya and Shrujal posted the Kite Runner session an
+    hour and a half apart. Because the start time comes from the announced
+    `Time` line, both resolve to the same sitting, which would otherwise be
+    counted twice.
+
+    The key matches the website's own session key (work, held_on, reader), so
+    what we export lines up with what the site stores. The earliest post wins.
+    """
+    seen: dict[tuple, Session] = {}
+    unique: list[Session] = []
+    duplicates: list[dict] = []
+
+    for session in sessions:
+        key = (
+            session.title.casefold(),
+            session.start,
+            tuple(r.casefold() for r in session.readers),
+        )
+        first = seen.get(key)
+        if first is None:
+            seen[key] = session
+            unique.append(session)
+            continue
+
+        duplicates.append(
+            {
+                "created_date": session.message_timestamp.isoformat(timespec="seconds"),
+                "reason": (
+                    f"re-post of the {session.start.date().isoformat()} "
+                    f"{session.title!r} session, already announced by "
+                    f"{first.announced_by or 'someone else'}"
+                ),
+                "excerpt": (
+                    f"{session.title}"
+                    f"{' - ' + session.segment if session.segment else ''}"
+                    f" | reader: {'; '.join(session.readers) or 'unassigned'}"
+                    f" | re-posted by {session.announced_by}"
+                ),
+            }
+        )
+
+    return unique, duplicates
