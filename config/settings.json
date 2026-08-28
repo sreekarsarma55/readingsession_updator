@@ -8,6 +8,21 @@
   "timezone": "Asia/Kolkata",
   "timezone_label": "IST",
 
+  "_stopped_at_comment": "ReadingSession.stopped_at is the live handover log that narrators fill in themselves each session, so the next narrator knows which page to pick up from. It is left BLANK for the historical import on purpose: anything sitting in that field should be something a human actually logged, not a value inferred from a four-year-old announcement. Nothing is lost either way, because what each historical session covered is already carried by the Segment column, which is exactly what the site's `segment` field is for. Set this to true only if you decide you want the history back-filled with a note derived from the segment ('Chapters 19-21' becomes 'Chapter 21'); it would only fill 14 of 217 rows.",
+  "stopped_at_from_segment": false,
+
+  "_emit_duration_comment": "ReadingSession.duration_minutes is nullable on purpose - the model says to leave it blank until the recordings are measured. Setting this to true writes the normalised default_duration_minutes into every row, which is what makes the totals on the site add up but also makes estimates look measured. Set to false to export it blank and keep the field honest.",
+  "emit_duration_minutes": true,
+
+  "_status_comment": "Feeds the website's ReadingWork.status field, whose choices are reading / upcoming / completed / paused. Everything defaults to 'completed'; list the book currently being read here. The site allows only one work in 'reading', so keep this to a single entry.",
+  "default_status": "completed",
+  "status_overrides": {
+    "The Midnight Library": "reading"
+  },
+
+  "_club_activity_comment": "Works with this type are the club's own segments rather than published works. They are written to club_activities.csv instead of works.csv, so the website's reading list stays a list of actual books.",
+  "club_activity_type": "Club Activity",
+
   "_duration_comment": "Sessions are not timed in the chat export, so duration is normalised. default_duration_minutes is applied to every session; Stopped_At = Created_Date + Duration_Minutes.",
   "default_duration_minutes": 120,
 
@@ -33,6 +48,14 @@
     "Author",
     "Poet"
   ],
+
+  "_category_map_comment": "The Category column in works.csv feeds the website's `category` field, which has a fixed vocabulary. This folds the club's interchangeable labels onto the values the site already stores, so recovering the 'Tale :' sessions does not introduce a new category. Values are compared and emitted in lower case.",
+  "category_map": {
+    "tale": "story",
+    "novella": "novel",
+    "text": "book",
+    "play": "book"
+  },
 
   "_segment_comment": "A trailing '(...)' on a title is treated as the chapter/part that was read only if it contains a digit or one of these words. Otherwise it is kept as part of the title, so 'The Promise (Dui Bondhu)' stays intact.",
   "segment_keywords": [

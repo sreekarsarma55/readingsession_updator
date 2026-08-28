@@ -85,7 +85,8 @@ def main() -> int:
     written: list[tuple[str, int]] = [
         ("sessions.csv", outputs.write_sessions(out_dir / "sessions.csv", sessions, config)),
         ("sessions_detailed.csv", outputs.write_sessions_detailed(out_dir / "sessions_detailed.csv", sessions, config)),
-        ("works.csv", outputs.write_works(out_dir / "works.csv", works)),
+        ("works.csv", outputs.write_works(out_dir / "works.csv", works, config)),
+        ("club_activities.csv", outputs.write_club_activities(out_dir / "club_activities.csv", works, config)),
         ("work_readers.csv", outputs.write_work_readers(out_dir / "work_readers.csv", works, config)),
         ("readers.csv", outputs.write_readers(out_dir / "readers.csv", readers)),
         ("authors.csv", outputs.write_authors(out_dir / "authors.csv", authors)),
