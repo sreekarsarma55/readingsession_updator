@@ -340,10 +340,14 @@ def write_timeline(path: Path, works: list[Work]) -> int:
 
 
 def write_archive(path: Path, sessions: list[Session], works: list[Work]) -> int:
+    # Everything here is derived from the export, with no wall-clock stamp, so
+    # rebuilding the same input produces a byte-identical file. A diff on this
+    # file then means the data really changed.
     payload = {
-        "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
         "session_count": len(sessions),
         "work_count": len(works),
+        "first_session": iso_date(sessions[0].start) if sessions else "",
+        "latest_session": iso_date(sessions[-1].start) if sessions else "",
         "sessions": [
             {
                 "created_date": iso_datetime(session.start),
