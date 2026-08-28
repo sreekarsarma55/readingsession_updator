@@ -1,0 +1,79 @@
+{
+  "_comment": "Global pipeline settings. Edit these rather than the code.",
+
+  "source_file": "data/raw/messages.json",
+  "output_dir": "data/processed",
+  "report_dir": "data/reports",
+
+  "timezone": "Asia/Kolkata",
+  "timezone_label": "IST",
+
+  "_duration_comment": "Sessions are not timed in the chat export, so duration is normalised. default_duration_minutes is applied to every session; Stopped_At = Created_Date + Duration_Minutes.",
+  "default_duration_minutes": 120,
+
+  "_overrides_comment": "Per-session duration overrides, keyed by the session date (YYYY-MM-DD in local timezone). Use for sessions you know ran long or short.",
+  "duration_overrides": {},
+
+  "_labels_comment": "Line labels that introduce the work being read. The club has used all of these over the years - 'Tale' was used exclusively through the March-May 2025 run, so dropping it loses 17 sessions.",
+  "labels": [
+    "Book",
+    "Tale",
+    "Novel",
+    "Novella",
+    "Story",
+    "Piece",
+    "Poem",
+    "Play",
+    "Text"
+  ],
+
+  "_author_fields_comment": "Line labels that name the author, used when the work line has no 'by <Author>' part.",
+  "author_fields": [
+    "Writer",
+    "Author",
+    "Poet"
+  ],
+
+  "_segment_comment": "A trailing '(...)' on a title is treated as the chapter/part that was read only if it contains a digit or one of these words. Otherwise it is kept as part of the title, so 'The Promise (Dui Bondhu)' stays intact.",
+  "segment_keywords": [
+    "chapter",
+    "chapters",
+    "ch",
+    "canto",
+    "part",
+    "parts",
+    "kaand",
+    "kand",
+    "kanda",
+    "volume",
+    "vol",
+    "act",
+    "scene",
+    "section",
+    "episode",
+    "page",
+    "pages"
+  ],
+
+  "_bad_readers_comment": "Reader values that mean 'nobody assigned yet'. Compared case-insensitively after cleaning.",
+  "bad_readers": [
+    "",
+    "open",
+    "open to all",
+    "open for all",
+    "opentoall",
+    "???",
+    "??",
+    "?",
+    "me",
+    "tbd",
+    "to be decided",
+    "to be decided in the session",
+    "anyone",
+    "na",
+    "n/a",
+    "-"
+  ],
+
+  "unassigned_label": "Unassigned"
+}

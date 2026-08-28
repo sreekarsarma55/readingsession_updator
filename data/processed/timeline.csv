@@ -1,50 +1,67 @@
-Title,First_Date,Last_Date,Sessions
-Salem's Lot,"Friday, December 13, 2024 at 4:42:27 PM UTC","Wednesday, October 30, 2024 at 3:58:53 PM UTC",38
-Waiting For The Mahatma,"Friday, August 16, 2024 at 3:27:37 PM UTC","Wednesday, September 4, 2024 at 3:32:07 PM UTC",15
-Devolution,"Friday, August 11, 2023 at 3:45:58 PM UTC","Wednesday, September 27, 2023 at 3:03:13 PM UTC",13
-The Murder of Roger Ackroyd,"Friday, July 19, 2024 at 2:54:30 PM UTC","Wednesday, July 24, 2024 at 2:37:30 PM UTC",12
-The Strangest Man,"Friday, May 16, 2025 at 3:07:14 PM UTC","Wednesday, May 28, 2025 at 3:57:21 PM UTC",11
-Pride & Prejudice,"Friday, December 15, 2023 at 4:38:44 PM UTC","Wednesday, November 15, 2023 at 3:56:26 PM UTC",9
-The Kite Runner,"Friday, January 23, 2026 at 4:55:34 PM UTC","Wednesday, March 18, 2026 at 4:41:30 PM UTC",9
-Hellstar Remina,"Friday, April 19, 2024 at 1:42:50 PM UTC","Wednesday, May 1, 2024 at 2:47:15 PM UTC",7
-Rashmirathi,"Friday, October 4, 2024 at 4:12:38 PM UTC","Wednesday, October 9, 2024 at 3:57:09 PM UTC",5
-Lord of the Flies,"Monday, December 12, 2022 at 5:30:58 PM UTC","Tuesday, January 10, 2023 at 5:31:55 PM UTC",4
-Uglies,"Friday, February 3, 2023 at 3:58:44 PM UTC","Wednesday, February 15, 2023 at 4:11:38 PM UTC",4
-Evelina,"Friday, October 13, 2023 at 4:01:10 PM UTC","Wednesday, October 18, 2023 at 4:22:13 PM UTC",4
-Carmilla,"Monday, June 5, 2023 at 4:29:01 PM UTC","Wednesday, June 7, 2023 at 10:57:47 AM UTC",3
-The Wendigo,"Friday, June 23, 2023 at 3:24:42 PM UTC","Wednesday, June 21, 2023 at 4:19:38 PM UTC",3
-One Dozen Stories,"Friday, July 28, 2023 at 4:15:24 PM UTC","Monday, July 24, 2023 at 3:43:11 PM UTC",3
-"'Oh, Whistle, and I'll Come to You, My Lad'","Friday, June 27, 2025 at 2:23:50 PM UTC","Thursday, July 3, 2025 at 3:15:13 PM UTC",3
-"""The Champawat Man-Eater""","Friday, March 24, 2023 at 4:29:02 PM UTC","Wednesday, March 22, 2023 at 4:15:10 PM UTC",2
-Ramayan(Baal Kaand),"Friday, February 9, 2024 at 4:18:15 PM UTC","Wednesday, February 14, 2024 at 3:34:23 PM UTC",2
-Submission,"Monday, August 11, 2025 at 3:34:12 PM UTC","Wednesday, September 3, 2025 at 3:48:13 PM UTC",2
-The Little Prince,"Friday, April 24, 2026 at 1:44:13 PM UTC","Monday, April 13, 2026 at 4:35:44 PM UTC",2
-The Blue Umbrella,"Friday, May 15, 2026 at 3:54:23 PM UTC","Monday, May 18, 2026 at 2:16:50 PM UTC",2
-"""The Last Leaf""","Monday, March 20, 2023 at 4:50:26 PM UTC","Monday, March 20, 2023 at 4:50:26 PM UTC",1
-"""The Rime of the Ancient Mariner""","Monday, March 27, 2023 at 4:17:22 PM UTC","Monday, March 27, 2023 at 4:17:22 PM UTC",1
-"The Lady, or The Tiger","Friday, June 16, 2023 at 4:30:23 PM UTC","Friday, June 16, 2023 at 4:30:23 PM UTC",1
-The Monkey's Paw,"Monday, June 19, 2023 at 4:27:04 PM UTC","Monday, June 19, 2023 at 4:27:04 PM UTC",1
-Classic Poems,"Wednesday, June 28, 2023 at 4:38:00 PM UTC","Wednesday, June 28, 2023 at 4:38:00 PM UTC",1
-The Night Train at Deoli & The Leopard,"Friday, June 30, 2023 at 4:22:21 PM UTC","Friday, June 30, 2023 at 4:22:21 PM UTC",1
-India's Most Fearless,"Wednesday, July 26, 2023 at 3:48:51 PM UTC","Wednesday, July 26, 2023 at 3:48:51 PM UTC",1
-LUKUNDOO,"Monday, January 29, 2024 at 3:31:30 PM UTC","Monday, January 29, 2024 at 3:31:30 PM UTC",1
-The Case of The Caretaker,"Wednesday, April 3, 2024 at 4:14:29 PM UTC","Wednesday, April 3, 2024 at 4:14:29 PM UTC",1
-Miss Marple Stories,"Friday, April 5, 2024 at 4:06:29 PM UTC","Friday, April 5, 2024 at 4:06:29 PM UTC",1
-Dagon and The Other Gods,"Monday, April 8, 2024 at 3:09:24 PM UTC","Monday, April 8, 2024 at 3:09:24 PM UTC",1
-The Upper Berth,"Wednesday, April 10, 2024 at 4:10:14 PM UTC","Wednesday, April 10, 2024 at 4:10:14 PM UTC",1
-Sherlock Holmes Stories,"Wednesday, April 17, 2024 at 4:24:15 PM UTC","Wednesday, April 17, 2024 at 4:24:15 PM UTC",1
-Kabuliwaala,"Monday, July 14, 2025 at 4:44:57 PM UTC","Monday, July 14, 2025 at 4:44:57 PM UTC",1
-Kankaal,"Wednesday, July 16, 2025 at 3:45:14 PM UTC","Wednesday, July 16, 2025 at 3:45:14 PM UTC",1
-Didi,"Monday, July 21, 2025 at 3:18:01 PM UTC","Monday, July 21, 2025 at 3:18:01 PM UTC",1
-Antim Pyaar,"Friday, July 25, 2025 at 3:25:54 PM UTC","Friday, July 25, 2025 at 3:25:54 PM UTC",1
-The Choice Not Made,"Friday, August 8, 2025 at 3:40:16 PM UTC","Friday, August 8, 2025 at 3:40:16 PM UTC",1
-Hope -- Rebooted in Reels,"Wednesday, August 13, 2025 at 3:33:15 PM UTC","Wednesday, August 13, 2025 at 3:33:15 PM UTC",1
-I Won't Accept Fate,"Monday, September 1, 2025 at 2:26:01 PM UTC","Monday, September 1, 2025 at 2:26:01 PM UTC",1
-दो बैलों की कथा,"Friday, January 16, 2026 at 3:50:49 PM UTC","Friday, January 16, 2026 at 3:50:49 PM UTC",1
-An Astrologer's Day,"Monday, January 19, 2026 at 4:35:08 PM UTC","Monday, January 19, 2026 at 4:35:08 PM UTC",1
-A Vagabond,"Monday, March 23, 2026 at 4:24:52 PM UTC","Monday, March 23, 2026 at 4:24:52 PM UTC",1
-Love,"Wednesday, March 25, 2026 at 4:48:52 PM UTC","Wednesday, March 25, 2026 at 4:48:52 PM UTC",1
-A Mistake,"Friday, March 27, 2026 at 3:25:01 PM UTC","Friday, March 27, 2026 at 3:25:01 PM UTC",1
-The Terror,"Wednesday, April 1, 2026 at 3:06:29 PM UTC","Wednesday, April 1, 2026 at 3:06:29 PM UTC",1
-Possibility Of Evil,"Wednesday, April 29, 2026 at 2:25:00 PM UTC","Wednesday, April 29, 2026 at 2:25:00 PM UTC",1
-The Most Beautiful,"Friday, May 22, 2026 at 4:02:34 PM UTC","Friday, May 22, 2026 at 4:02:34 PM UTC",1
+Order,First_Session,Last_Session,Span_Days,Title,Author,Type,Sessions,Readers
+1,2022-12-12,2023-01-10,29,Lord of the Flies,William Golding,Novel,4,Angana Mondal; Satyaki Goswami
+2,2023-01-30,2023-02-15,16,Uglies,Scott Westerfeld,Novel,4,Ayesha Badgujar; Harshvi Saini; Nishan; Satyaki Goswami
+3,2023-03-20,2023-03-20,0,The Last Leaf,O. Henry,Short Story,1,
+4,2023-03-22,2023-03-24,2,The Champawat Man-Eater,Jim Corbett,Non-fiction,2,
+5,2023-03-27,2023-03-27,0,The Rime of the Ancient Mariner,Samuel Taylor Coleridge,Poem,1,Angana Mondal
+6,2023-06-01,2023-06-07,6,Carmilla,Joseph Sheridan Le Fanu,Novella,3,Rahul Chakraborty; Shreya
+7,2023-06-16,2023-06-16,0,"The Lady, or the Tiger?",Frank R. Stockton,Short Story,1,Amit Kumar Gupta
+8,2023-06-19,2023-06-19,0,The Monkey's Paw,W. W. Jacobs,Short Story,1,
+9,2023-06-21,2023-06-26,5,The Wendigo,Algernon Blackwood,Novella,3,Ayush S. Jadhav; Nairhritya; Satyaki Goswami
+10,2023-06-28,2023-06-28,0,Classic Poems,Various,Anthology,1,Amit Kumar Gupta
+11,2023-06-30,2023-06-30,0,The Night Train at Deoli & The Leopard,Ruskin Bond,Short Story,1,Harshvi Saini
+12,2023-07-17,2023-07-28,11,One Dozen Stories,Satyajit Ray,Short Story Collection,3,Aradhya Kulkarni; gharsh; Nairhritya
+13,2023-07-26,2023-07-26,0,India's Most Fearless,Shiv Aroor and Rahul Singh,Non-fiction,1,Ayush S. Jadhav; Tamajit Sadukhan
+14,2023-08-07,2023-10-06,60,Devolution,Max Brooks,Novel,13,gharsh; Shagun Dwivedi
+15,2023-10-11,2023-10-18,7,Evelina,Frances Burney,Novel,4,
+16,2023-11-15,2023-12-15,30,Pride and Prejudice,Jane Austen,Novel,9,Ashish; Chatrapal Singh Rathore; Himanshu
+17,2024-01-22,2024-02-14,23,Ramayan,Tulsidas,Epic Poem,6,Abhineet Raman; Ashish; gharsh; Prasannakumar
+18,2024-01-29,2024-01-29,0,Lukundoo,Edward Lucas White,Short Story,1,Satyaki Goswami
+19,2024-02-02,2024-03-18,45,The Hitchhiker's Guide to the Galaxy,Douglas Adams,Novel,10,Amit Kumar Gupta; Himanshu Singh; Satyaki Goswami
+20,2024-04-01,2024-04-01,0,The Purloined Letter,Edgar Allan Poe,Short Story,1,Abhineet Raman
+21,2024-04-03,2024-04-03,0,The Case of The Caretaker,Agatha Christie,Short Story,1,
+22,2024-04-05,2024-04-05,0,Miss Marple Stories,Agatha Christie,Short Story Collection,1,
+23,2024-04-08,2024-04-08,0,Dagon and The Other Gods,H. P. Lovecraft,Short Story,1,Satyaki Goswami
+24,2024-04-08,2024-04-10,2,The Upper Berth,F. Marion Crawford,Short Story,2,Satyaki Goswami
+25,2024-04-17,2024-04-17,0,Sherlock Holmes Stories,Arthur Conan Doyle,Short Story Collection,1,
+26,2024-04-19,2024-06-19,61,Hellstar Remina,Junji Ito,Manga,7,Satyaki Goswami
+27,2024-06-21,2024-07-27,36,The Murder of Roger Ackroyd,Agatha Christie,Novel,12,Satyaki Goswami; Shagun Dwivedi
+28,2024-07-29,2024-09-25,58,Waiting for the Mahatma,R. K. Narayan,Novel,15,Ayesha Badgujar; Himanshu Sharma; Satyaki Goswami
+29,2024-09-27,2024-11-04,38,Rashmirathi,Ramdhari Singh Dinkar,Epic Poem,5,Abhineet Raman; Harsh Vardhan Rai
+30,2024-09-30,2025-03-10,161,Salem's Lot,Stephen King,Novel,38,Abhishek Kumar Jha; Chhota Himanshu; Satyaki Goswami; Vedam Thanvi Sree Nithya
+31,2024-12-09,2025-01-29,51,From The Pages of Childhood,,Club Activity,14,Abhishek Kumar Jha; Chhota Himanshu; Satyaki Goswami; Vedam Thanvi Sree Nithya
+32,2025-02-03,2025-03-07,32,Ink What You Think,,Club Activity,7,Abhishek Kumar Jha; Satyaki Goswami
+33,2025-03-17,2025-03-17,0,One For The Road,Stephen King,Short Story,1,Abhishek Kumar Jha; Satyaki Goswami
+34,2025-03-19,2025-04-21,33,Arkham Asylum: A Serious House on Serious Earth,Grant Morrison and Dave McKean,Graphic Novel,8,Satyaki Goswami
+35,2025-04-23,2025-04-23,0,Khagam,Satyajit Ray,Short Story,1,Satyaki Goswami
+36,2025-04-25,2025-04-25,0,The Promise (Dui Bondhu),Satyajit Ray,Short Story,1,Satyaki Goswami
+37,2025-04-30,2025-04-30,0,Mr Brown's Cottage,Satyajit Ray,Short Story,1,Satyaki Goswami
+38,2025-05-02,2025-05-02,0,Gagan Chowdhury's Studio,Satyajit Ray,Short Story,1,Satyaki Goswami
+39,2025-05-04,2025-05-04,0,"The Maths Teacher, Mr Pink, and Tipu",Satyajit Ray,Short Story,1,Satyaki Goswami
+40,2025-05-05,2025-05-05,0,The Vicious Vampire,Satyajit Ray,Short Story,1,Satyaki Goswami
+41,2025-05-07,2025-05-07,0,The Hungry Septopus,Satyajit Ray,Short Story,1,Satyaki Goswami
+42,2025-05-12,2025-05-12,0,The Postmaster,Rabindranath Tagore,Short Story,1,Satyaki Goswami
+43,2025-05-16,2025-07-02,47,The Strangest Man,Graham Farmelo,Biography,11,Satyaki Goswami; Vedam Thanvi Sree Nithya
+44,2025-06-27,2025-07-03,6,"Oh, Whistle, and I'll Come to You, My Lad",M. R. James,Short Story,3,Satyaki Goswami
+45,2025-07-14,2025-07-14,0,Kabuliwala,Rabindranath Tagore,Short Story,1,Himanshu Sharma
+46,2025-07-16,2025-07-16,0,Kankaal,Jaishankar Prasad,Novel,1,Satyaki Goswami
+47,2025-07-21,2025-07-21,0,Didi,,Short Story,1,Gourav Kumar Ghosh
+48,2025-07-25,2025-07-25,0,Antim Pyaar,Rabindranath Tagore,Short Story,1,Himanshu Sharma
+49,2025-08-08,2025-08-08,0,The Choice Not Made,Wise Dev,Member Submission,1,Satyaki Goswami
+50,2025-08-11,2025-08-11,0,Submission,Srutorshi Basuray,Member Submission,1,Satyaki Goswami
+51,2025-08-13,2025-08-13,0,Hope - Rebooted in Reels,Darshil Jain,Member Submission,1,Satyaki Goswami
+52,2025-09-01,2025-09-01,0,I Won't Accept Fate,Ayush Manjil,Member Submission,1,Satyaki Goswami
+53,2025-09-03,2025-09-03,0,Submission,Sreevidya Y,Member Submission,1,Satyaki Goswami
+54,2026-01-16,2026-01-16,0,दो बैलों की कथा,Premchand,Short Story,1,
+55,2026-01-19,2026-01-19,0,An Astrologer's Day,R. K. Narayan,Short Story,1,Sreevidya Yadavally
+56,2026-01-21,2026-03-18,56,The Kite Runner,Khaled Hosseini,Novel,9,Anshu; Prachi; Sreevidya Yadavally
+57,2026-03-23,2026-03-23,0,A Vagabond,Guy de Maupassant,Short Story,1,Sreevidya Yadavally
+58,2026-03-25,2026-03-25,0,Love,Guy de Maupassant,Short Story,1,Prachi
+59,2026-03-27,2026-03-27,0,A Mistake,Guy de Maupassant,Short Story,1,Sreevidya Yadavally
+60,2026-04-01,2026-04-01,0,The Terror,Guy de Maupassant,Short Story,1,Sreevidya Yadavally
+61,2026-04-13,2026-04-24,11,The Little Prince,Antoine de Saint-Exupéry,Novella,2,Chatrapal Singh Rathore; Sreevidya Yadavally
+62,2026-04-29,2026-04-29,0,The Possibility of Evil,Shirley Jackson,Short Story,1,Prachi
+63,2026-05-15,2026-05-18,3,The Blue Umbrella,Ruskin Bond,Novella,2,Sreevidya Yadavally
+64,2026-05-22,2026-05-22,0,The Most Beautiful,Ruskin Bond,Short Story,1,Sreevidya Yadavally
+65,2026-06-01,2026-06-17,16,Hell Screen,Ryūnosuke Akutagawa,Short Story,3,Sreevidya Yadavally
+66,2026-08-03,2026-08-03,0,The Midnight Library,Matt Haig,Novel,1,Sreevidya Yadavally
