@@ -8,6 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
+from . import normalize as nz
 from .aggregate import Person, Work
 from .config import Config
 from .parsing import Session
@@ -49,22 +50,42 @@ def _write_csv(path: Path, header: Sequence[str], rows: Iterable[Sequence[Any]])
 
 
 def write_sessions(path: Path, sessions: list[Session], config: Config) -> int:
-    """One row per session, in the exact requested column order.
+    """One row per session, mapped onto the website's ReadingSession model.
 
-    Deliberately one row per *session* rather than per reader: a co-read
-    session is still a single two-hour meeting, so splitting it into two rows
-    would double-count Duration_Minutes. Co-readers share the Reader cell.
+        Title            -> work (matched by ReadingWork.title)
+        Reader           -> reader_name  (free text; blank shows as "Unrecorded")
+        Segment          -> segment
+        Created_Date     -> held_on      (ISO 8601 with offset)
+        Stopped_At       -> stopped_at   (handover NOTE, not a time)
+        Duration_Minutes -> duration_minutes
+
+    Two deliberate choices:
+
+    `Stopped_At` is exported blank. It is the live handover log narrators fill
+    in themselves, so a value inferred from an old announcement would read as
+    something a human logged. What each historical session covered is already
+    in `Segment`, which is the field for it. Set `stopped_at_from_segment` to
+    true to back-fill it anyway ("Chapters 19-21" -> "Chapter 21").
+
+    One row per *session*, not per reader: a co-read session is still a single
+    sitting, so splitting it would double-count Duration_Minutes. Co-readers
+    share the Reader cell, matching `reader_name`'s "free text" intent.
     """
+    derive = bool(config.settings.get("stopped_at_from_segment", True))
+    emit_duration = bool(config.settings.get("emit_duration_minutes", True))
+
     rows = []
     for session in sessions:
         rows.append(
             [
                 session.title,
-                JOIN.join(session.readers) or config.unassigned_label,
+                # Left blank rather than "Unassigned" so the model's
+                # reader_display property renders its own "Unrecorded".
+                JOIN.join(session.readers),
                 session.segment,
                 iso_datetime(session.start),
-                iso_datetime(session.end),
-                session.duration_minutes,
+                nz.handover_note(session.segment) if derive else "",
+                session.duration_minutes if emit_duration else "",
             ]
         )
 
@@ -84,6 +105,7 @@ def write_sessions_detailed(path: Path, sessions: list[Session], config: Config)
                 iso_date(session.start),
                 session.start.strftime("%A"),
                 iso_datetime(session.start),
+                nz.handover_note(session.segment),
                 iso_datetime(session.end),
                 session.duration_minutes,
                 session.title,
@@ -110,6 +132,7 @@ def write_sessions_detailed(path: Path, sessions: list[Session], config: Config)
             "Weekday",
             "Created_Date",
             "Stopped_At",
+            "Estimated_End",
             "Duration_Minutes",
             "Title",
             "Author",

@@ -13,6 +13,42 @@
 - A co-read session stays one row, so `Duration_Minutes` is never double-counted.
 - `Hours` in `works.csv` credits each session to its primary work only.
 - Per-session corrections can be added to `duration_overrides` in `config/settings.json`.
+- `Stopped_At` is the site's live handover log, which narrators fill in each session, so it is exported **blank** for the history: a value inferred from a four-year-old announcement would read as something a human logged. What each session actually covered is already carried by `Segment`. Set `stopped_at_from_segment` to true to back-fill it anyway (it would reach only 14 of the 217 rows).
+- The website's `duration_minutes` is nullable and the model says to leave it blank until recordings are measured. We fill it with the normalised value so the site's totals add up; set `emit_duration_minutes` to false to export it blank and keep that field strictly measured.
+
+## Works whose session count exceeds their session rows
+
+`sessions.csv` has one row per sitting, linked to that sitting's primary work. Where a single sitting covered two works, the second work's `Sessions` total in `works.csv` is higher than the number of rows naming it. Nothing is lost - the pairing is recorded in `Also_In_Session` in `sessions_detailed.csv`.
+
+- 2024-04-08 - Dagon and The Other Gods + The Upper Berth
+- 2024-12-09 - Salem's Lot + From The Pages of Childhood
+- 2024-12-11 - Salem's Lot + From The Pages of Childhood
+- 2024-12-13 - Salem's Lot + From The Pages of Childhood
+- 2024-12-27 - Salem's Lot + From The Pages of Childhood
+- 2024-12-30 - Salem's Lot + From The Pages of Childhood
+- 2025-01-02 - Salem's Lot + From The Pages of Childhood
+- 2025-01-03 - Salem's Lot + From The Pages of Childhood
+- 2025-01-06 - Salem's Lot + From The Pages of Childhood
+- 2025-01-08 - Salem's Lot + From The Pages of Childhood
+- 2025-01-10 - Salem's Lot + From The Pages of Childhood
+- 2025-01-13 - Salem's Lot + From The Pages of Childhood
+- 2025-01-22 - Salem's Lot + From The Pages of Childhood
+- 2025-01-24 - Salem's Lot + From The Pages of Childhood
+- 2025-01-29 - Salem's Lot + From The Pages of Childhood
+- 2025-02-03 - Salem's Lot + Ink What You Think
+- 2025-02-05 - Salem's Lot + Ink What You Think
+- 2025-02-07 - Salem's Lot + Ink What You Think
+- 2025-02-12 - Salem's Lot + Ink What You Think
+- 2025-02-14 - Salem's Lot + Ink What You Think
+- 2025-02-28 - Salem's Lot + Ink What You Think
+- 2025-03-07 - Salem's Lot + Ink What You Think
+
+## Titles made unique for import
+
+Two works shared a title, which would break the website's lookup: `ReadingSession.work` is resolved by title, and `import_id_fields = ("title",)` would fold them into one record. The author is appended to keep them distinct:
+
+- Submission (Sreevidya Y)
+- Submission (Srutorshi Basuray)
 
 ## Works still missing an author (1)
 

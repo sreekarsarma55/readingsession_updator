@@ -90,6 +90,46 @@ Details worth knowing:
   they go to `club_activities.csv`. Import them only if you want them listed,
   and use category `other`.
 
+## Importing sessions.csv
+
+`sessions.csv` maps onto `ReadingSession`, one row per sitting:
+
+| CSV column | `ReadingSession` field | Note |
+|---|---|---|
+| `Title` | `work` | Resolved against `ReadingWork.title` |
+| `Reader` | `reader_name` | Free text, as the field intends |
+| `Segment` | `segment` | What was covered, e.g. `Chapter 5` |
+| `Created_Date` | `held_on` | ISO 8601 with `+05:30` offset |
+| `Stopped_At` | `stopped_at` | Intentionally blank — see below |
+| `Duration_Minutes` | `duration_minutes` | Normalised, not measured |
+
+- **`Stopped_At` is exported blank.** It is the live handover log that narrators
+  fill in each session so the next reader knows which page to resume from.
+  Back-filling it with a value inferred from a years-old announcement would make
+  a guess look like something a human logged. Nothing is lost: what each session
+  covered is already in `Segment`, which is that field's purpose. Flip
+  `stopped_at_from_segment` in `config/settings.json` if you ever want the
+  history back-filled — it would reach only 14 of 217 rows, since most
+  announcements never named a chapter.
+- **`Reader` is blank when nobody was assigned**, rather than a placeholder, so
+  the model's `reader_display` renders its own `"Unrecorded"`.
+- **`Duration_Minutes` is an estimate.** Your model comment says to leave it
+  blank until the recordings are measured, and it is nullable for that reason.
+  We fill it so the site's totals add up, but that does make estimates look
+  measured — `duration_display` will read `2h` for every historical session. Set
+  `emit_duration_minutes` to false to export it blank and keep the field
+  strictly measured.
+- **Titles are unique.** Two member pieces were both announced as *Submission*;
+  they are exported as `Submission (Srutorshi Basuray)` and
+  `Submission (Sreevidya Y)` so the `work` lookup cannot go wrong.
+- **One row per sitting.** The single evening that covered two works (*Dagon and
+  The Other Gods* plus *The Upper Berth*) is one row against the primary work,
+  so `The Upper Berth` shows one session row against a `Sessions` total of two.
+  The pairing is preserved in `Also_In_Session` in `sessions_detailed.csv`.
+
+Import `works.csv` first, so the `work` foreign keys have something to resolve
+against.
+
 ### Re-importing without creating duplicates
 
 The import preview marks every row `New` because the CSV carries no primary key,
