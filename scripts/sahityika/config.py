@@ -66,6 +66,15 @@ class Config:
     def author_fields(self) -> list[str]:
         return self.settings.get("author_fields", ["Writer", "Author"])
 
+    def site_category(self, announced_as: str) -> str:
+        """Fold an announcement label onto the website's `category` vocabulary."""
+        value = (announced_as or "").strip().casefold()
+        mapping = {
+            k.casefold(): v.casefold()
+            for k, v in (self.settings.get("category_map") or {}).items()
+        }
+        return mapping.get(value, value)
+
     @property
     def segment_keywords(self) -> set[str]:
         return {w.casefold() for w in self.settings.get("segment_keywords", ["chapter"])}

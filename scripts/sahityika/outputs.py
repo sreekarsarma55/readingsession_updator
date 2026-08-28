@@ -135,24 +135,33 @@ def write_sessions_detailed(path: Path, sessions: list[Session], config: Config)
 # --------------------------------------------------------------------------
 
 
-def write_works(path: Path, works: list[Work]) -> int:
+def write_works(path: Path, works: list[Work], config: Config) -> int:
+    """Works, most-read first.
+
+    The leading columns deliberately use the column names and order of the
+    website's ReadingWork import (title, author, category, actual_type,
+    language, country, sessions, first_date, last_date) so the file drops
+    straight into the Django admin importer. `category` is lower-cased to match
+    the values the site already stores. Everything after `last_date` is extra
+    context for humans; the importer ignores columns it does not know.
+    """
     rows = []
     for work in works:
         rows.append(
             [
                 work.title,
                 work.author,
+                config.site_category(work.announced_as),
                 work.work_type,
                 work.language,
                 work.country,
                 work.sessions,
+                iso_date(work.first_session),
+                iso_date(work.last_session),
                 round(work.total_minutes / 60, 1),
                 work.reader_count,
                 JOIN.join(work.readers),
                 JOIN.join(work.segments),
-                iso_date(work.first_session),
-                iso_date(work.last_session),
-                work.announced_as,
                 work.confidence,
                 work.note,
             ]
@@ -161,19 +170,21 @@ def write_works(path: Path, works: list[Work]) -> int:
     return _write_csv(
         path,
         [
+            # --- consumed by the website importer ---
             "Title",
             "Author",
-            "Type",
+            "Category",
+            "Actual_Type",
             "Language",
             "Country",
             "Sessions",
+            "First_Date",
+            "Last_Date",
+            # --- extra context, ignored by the importer ---
             "Hours",
             "Reader_Count",
             "Readers",
             "Segments_Covered",
-            "First_Session",
-            "Last_Session",
-            "Announced_As",
             "Author_Confidence",
             "Notes",
         ],

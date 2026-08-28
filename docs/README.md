@@ -35,12 +35,55 @@ scripts/archive/     superseded one-off scripts, kept for reference
 |---|---|---|
 | `sessions.csv` | session | The core log: `Title, Reader, Segment, Created_Date, Stopped_At, Duration_Minutes` |
 | `sessions_detailed.csv` | session | Same sessions plus author, category, announcer, raw announcement values, warnings |
-| `works.csv` | work | Everything read, most-read first, with author/type/language/country |
+| `works.csv` | work | Everything read, most-read first. Import-ready for the website (see below) |
 | `work_readers.csv` | work | Just the work and everyone who read it, alphabetical |
 | `readers.csv` | person | Session and hour totals per reader |
 | `authors.csv` | author | Works and sessions per author |
 | `timeline.csv` | work | Works in the order the club started them |
 | `archive.json` | – | Full structured dump of sessions and works |
+
+## Importing works.csv into the website
+
+`works.csv` is shaped for the Django admin importer at
+`/admin/web/readingwork/import/`. Its first nine columns use the exact names and
+order the `ReadingWork` importer expects:
+
+```
+Title, Author, Category, Actual_Type, Language, Country, Sessions, First_Date, Last_Date
+```
+
+Everything after `Last_Date` (`Hours`, `Reader_Count`, `Readers`,
+`Segments_Covered`, `Author_Confidence`, `Notes`) is extra context for humans —
+the importer ignores columns it does not recognise.
+
+Two details worth knowing:
+
+- **`Category` is lower-cased and folded onto the site's existing vocabulary**
+  (`book`, `novel`, `story`, `piece`, `poem`). The club has used interchangeable
+  labels over the years, so `category_map` in `config/settings.json` maps
+  `tale → story`, `novella → novel` and so on. Without it, recovering the
+  March–May 2025 `Tale :` sessions would push a brand-new `tale` value into the
+  site and risk failing a choices validation.
+- **`Genre` and `Status` are intentionally not exported.** `Status` already has
+  a working model default (`completed`), and `Genre` looks like a related model
+  on the site, so free-text values would either fail or create junk records.
+
+### Re-importing without creating duplicates
+
+The import preview marks every row `New` because the CSV carries no primary key,
+and `django-import-export` matches on `id` by default. Re-importing therefore
+appends a second copy of every work rather than updating it. Set the resource to
+match on the title instead:
+
+```python
+class ReadingWorkResource(resources.ModelResource):
+    class Meta:
+        model = ReadingWork
+        import_id_fields = ("title",)
+```
+
+With that in place, re-running the import updates existing rows and only genuine
+additions show up as `New`.
 
 ## How the numbers are derived
 

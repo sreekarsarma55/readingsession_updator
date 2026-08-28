@@ -34,6 +34,14 @@
     "Poet"
   ],
 
+  "_category_map_comment": "The Category column in works.csv feeds the website's `category` field, which has a fixed vocabulary. This folds the club's interchangeable labels onto the values the site already stores, so recovering the 'Tale :' sessions does not introduce a new category. Values are compared and emitted in lower case.",
+  "category_map": {
+    "tale": "story",
+    "novella": "novel",
+    "text": "book",
+    "play": "book"
+  },
+
   "_segment_comment": "A trailing '(...)' on a title is treated as the chapter/part that was read only if it contains a digit or one of these words. Otherwise it is kept as part of the title, so 'The Promise (Dui Bondhu)' stays intact.",
   "segment_keywords": [
     "chapter",
