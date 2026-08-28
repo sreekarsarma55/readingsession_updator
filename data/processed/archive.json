@@ -3470,7 +3470,7 @@
       "created_date": "2025-08-11T22:15:00+05:30",
       "stopped_at": "2025-08-12T00:15:00+05:30",
       "duration_minutes": 120,
-      "title": "Submission",
+      "title": "Submission (Srutorshi Basuray)",
       "author": "Srutorshi Basuray",
       "segment": "",
       "announced_as": "Piece",
@@ -3524,7 +3524,7 @@
       "created_date": "2025-09-03T22:15:00+05:30",
       "stopped_at": "2025-09-04T00:15:00+05:30",
       "duration_minutes": 120,
-      "title": "Submission",
+      "title": "Submission (Sreevidya Y)",
       "author": "Sreevidya Y",
       "segment": "",
       "announced_as": "Piece",
@@ -4772,24 +4772,7 @@
       "note": ""
     },
     {
-      "title": "Submission",
-      "author": "Srutorshi Basuray",
-      "type": "Member Submission",
-      "language": "English",
-      "country": "India",
-      "sessions": 1,
-      "hours": 2.0,
-      "readers": [
-        "Satyaki Goswami"
-      ],
-      "segments": [],
-      "first_session": "2025-08-11",
-      "last_session": "2025-08-11",
-      "author_confidence": "verified",
-      "note": "Untitled member submission."
-    },
-    {
-      "title": "Submission",
+      "title": "Submission (Sreevidya Y)",
       "author": "Sreevidya Y",
       "type": "Member Submission",
       "language": "English",
@@ -4802,6 +4785,23 @@
       "segments": [],
       "first_session": "2025-09-03",
       "last_session": "2025-09-03",
+      "author_confidence": "verified",
+      "note": "Untitled member submission."
+    },
+    {
+      "title": "Submission (Srutorshi Basuray)",
+      "author": "Srutorshi Basuray",
+      "type": "Member Submission",
+      "language": "English",
+      "country": "India",
+      "sessions": 1,
+      "hours": 2.0,
+      "readers": [
+        "Satyaki Goswami"
+      ],
+      "segments": [],
+      "first_session": "2025-08-11",
+      "last_session": "2025-08-11",
       "author_confidence": "verified",
       "note": "Untitled member submission."
     },

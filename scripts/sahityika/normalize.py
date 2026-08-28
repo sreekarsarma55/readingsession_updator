@@ -154,6 +154,32 @@ def normalize_segment(segment: str) -> str:
     return smart_case(value)
 
 
+def handover_note(segment: str) -> str:
+    """Derive a "where we stopped" note from the segment that was covered.
+
+    The website's `stopped_at` is a note for whoever reads next, and the chat
+    export never recorded one. The announced segment is the closest honest
+    substitute: if a session covered Chapters 19-21, the next reader picks up
+    after Chapter 21.
+
+        "Chapters 19-21" -> "Chapter 21"
+        "Chapter 5"      -> "Chapter 5"
+        "Baal Kaand"     -> "Baal Kaand"
+        ""               -> ""
+    """
+    value = (segment or "").strip()
+    if not value:
+        return ""
+
+    match = re.match(
+        r"^chapters?\s+(\d+)\s*(?:-|–|—|to)\s*(\d+)$", value, re.IGNORECASE
+    )
+    if match:
+        return f"Chapter {int(match.group(2))}"
+
+    return value
+
+
 def split_title_author(text: str) -> tuple[str, str]:
     """Split "<Title> by <Author>" into its two halves.
 

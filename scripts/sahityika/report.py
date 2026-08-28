@@ -55,7 +55,47 @@ def write_report(
         "- A co-read session stays one row, so `Duration_Minutes` is never double-counted.",
         "- `Hours` in `works.csv` credits each session to its primary work only.",
         "- Per-session corrections can be added to `duration_overrides` in `config/settings.json`.",
+        "- `Stopped_At` is the site's live handover log, which narrators fill in each "
+        "session, so it is exported **blank** for the history: a value inferred from a "
+        "four-year-old announcement would read as something a human logged. What each "
+        "session actually covered is already carried by `Segment`. Set "
+        "`stopped_at_from_segment` to true to back-fill it anyway (it would reach only "
+        "14 of the 217 rows).",
+        "- The website's `duration_minutes` is nullable and the model says to leave it "
+        "blank until recordings are measured. We fill it with the normalised value so the "
+        "site's totals add up; set `emit_duration_minutes` to false to export it blank "
+        "and keep that field strictly measured.",
     ]
+
+    shared = [s for s in sessions if s.additional_works]
+    if shared:
+        _section(lines, "Works whose session count exceeds their session rows")
+        lines += [
+            "`sessions.csv` has one row per sitting, linked to that sitting's primary "
+            "work. Where a single sitting covered two works, the second work's "
+            "`Sessions` total in `works.csv` is higher than the number of rows naming "
+            "it. Nothing is lost - the pairing is recorded in `Also_In_Session` in "
+            "`sessions_detailed.csv`.",
+            "",
+        ]
+        for session in shared:
+            extras = "; ".join(w.title for w in session.additional_works)
+            lines.append(f"- {iso_date(session.start)} - {session.title} + {extras}")
+
+    renamed = sorted(
+        w.title for w in works if w.title.endswith(")") and f"({w.author})" in w.title
+    )
+    if renamed:
+        _section(lines, "Titles made unique for import")
+        lines += [
+            "Two works shared a title, which would break the website's lookup: "
+            "`ReadingSession.work` is resolved by title, and `import_id_fields = "
+            '("title",)` would fold them into one record. The author is appended to '
+            "keep them distinct:",
+            "",
+        ]
+        for title in renamed:
+            lines.append(f"- {title}")
 
     if missing_author:
         _section(lines, f"Works still missing an author ({len(missing_author)})")
